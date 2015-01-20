@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multiparty Chatroom</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+         <link rel="stylesheet" type="text/css" href="easyrtc.css" />
+
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/demo_room.css" />
+        <script type="text/javascript" src="host.js"></script>
+    </head>
+
+    <body onload="appInit()" style="background-image:url(images/irongrip.png)" height="100%">
+        <div id="fullpage"  class="boxCommon" style="background-image:url(images/irongrip.png)">
+            <video id="box0" class="transit boxCommon thumbCommon easyRTCMirror" muted="muted" volume="0" ></video>
+            <video id="box1" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>
+            <video id="box2" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>
+            <video id="box3" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>
+            <img id="killButton" class="transit boxCommon" onclick="killActiveBox()" src="images/button_close.png" style="display:none;z-index:3" alt="close button" />
+            <img id="muteButton" class="transit boxCommon" onclick ="muteActiveBox()" src="images/button_mute.png" style="display:none;z-index:3" alt="mute button" />
+        </div>
+        <div id="gdoc" style="width:50%;left:50%;height:100%;position:absolute">
+	<iframe width="96%" height="96%" style="margin-top:2%;margin-left:2%" src="https://docs.google.com/document/d/1tJtJCz5QwSxIqK6heCpUyUDcCbS_Cx4pGmJKJJHh2Uk/edit?usp=sharing"></iframe>        
+</div>
+<div id="youtube" style="width:50%;left:0px;height:50%;bottom:0px;position:absolute">
+</div>    
+    </body>
+</html>

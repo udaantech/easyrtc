@@ -1,0 +1,48 @@
+#mainWindow {
+
+}
+
+#demoContainer {
+    position:relative;
+}
+#connectControls {
+    float:left;
+    width:250px;
+    height:610px;
+    text-align:center;
+    border:1px solid black;
+    padding:3px;
+    margin-top:2px;
+}
+#otherClients {
+    height:300px;
+    overflow-y:scroll;
+}
+
+.selfVideoDiv {
+    height:305px;
+    width:27%;
+    float:left;
+    padding:3px;
+}
+
+#selfVideo {
+    width:100%;
+    height:100%;
+    border:1px solid gray;
+}
+
+.callerVideoDiv {
+    position:relative;
+    float:left;
+    width:27%;
+    height:305px;
+    padding:3px;
+}
+
+#callerVideo {
+    
+    width:100%;
+    height:100%;
+    border:1px solid gray;
+}

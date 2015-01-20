@@ -1,0 +1,93 @@
+<!DOCTYPE html
+>
+<html><head>
+        <title>Broadcast Room</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+         <link rel="stylesheet" type="text/css" href="easyrtc.css">
+
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script><style type="text/css"></style>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/demo_room.css">
+        <script type="text/javascript" src="js/broadcaster.js"></script><style type="text/css"></style>
+    <style type="text/css"></style><style type="text/css"></style><style type="text/css"></style></head>
+
+    <body style="background-image:url(images/irongrip.png)" onload="appInit()">
+        <div id="fullpage" class="boxCommon" style="width: 100%; height: 185px; left: 0px; top: 0px; background-color: #000000;">
+            <video id="box0" class="transit boxCommon thumbCommon easyRTCMirror" muted="" volume="0" style="left: 20px; top: -36px; width: 341px; height: 256px; z-index: 1;"></video>
+            <video id="box1" class="transit boxCommon thumbCommon" style="visibility: hidden; left: 15px; top: 145px; width: 49px; height: 37px;"></video>
+            <video id="box2" class="transit boxCommon thumbCommon" style="visibility: hidden; left: 1470px; top: 1px; width: 49px; height: 37px;"></video>
+            <video id="box3" class="transit boxCommon thumbCommon" style="visibility: hidden; left: 1470px; top: 145px; width: 49px; height: 37px;"></video>
+            <div id="textentryBox" onsubmit="sendText()" style="display:none">
+                <input type="text" id="textentryField" class="transit boxcommon"><br>
+                <button id="textentrySubmit" style="float:right;margin-right:1em" onclick="sendText()">Send</button>
+                <button id="textentryCancel" style="float:left;margin-left:1em" onclick="cancelText()">Cancel</button>
+            </div>
+
+            <img id="killButton" class="transit boxCommon" onclick="killActiveBox()" src="images/button_close.png" style="display: none; z-index: 3; left: 1501px; top: 71px; width: 18px; height: 18px;" alt="close button">
+            <img id="muteButton" class="transit boxCommon" onclick="muteActiveBox()" src="images/button_mute.png" style="display: none; z-index: 3; left: 15px; top: 71px; width: 18px; height: 18px;" alt="mute button">
+            <img id="textEntryButton" class="transit boxCommon" onclick="showTextEntry()" src="images/textEntry.png" style="z-index:3;display:none" alt="text button">
+        </div>
+        
+  
+  
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script>
+	var socket = io.connect('http://podcastsf.com');
+
+	// on connection to server, ask for user's name with an anonymous callback
+	socket.on('connect', function(){
+		// call the server-side function 'adduser' and send one parameter (value of prompt)
+		socket.emit('adduser', prompt("What's your name?"));
+	});
+
+	// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('updatechat', function (username, data) {
+		$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
+	});
+
+	// listener, whenever the server emits 'updateusers', this updates the username list
+	socket.on('updateusers', function(data) {
+		$('#users').empty();
+		$.each(data, function(key, value) {
+			$('#users').append('<div>' + key + '</div>');
+		});
+	});
+
+	// on load of page
+	$(function(){
+		// when the client clicks SEND
+		$('#datasend').click( function() {
+			var message = $('#data').val();
+			$('#data').val('');
+			// tell server to execute 'sendchat' and send along one parameter
+			socket.emit('sendchat', message);
+		});
+
+		// when the client hits ENTER on their keyboard
+		$('#data').keypress(function(e) {
+			if(e.which == 13) {
+				$(this).blur();
+				$('#datasend').focus().click();
+			}
+		});
+	});
+
+</script>
+<div style="position: fixed;width:100px;border-right:1px solid black;height: 57%;padding:10px;overflow: scroll;bottom: 0;overflow-x: hidden;overflow-y: hidden;right: 25%;">
+	<b>USERS</b>
+	<div id="users"><div>wehde</div></div>
+</div>
+<div style="position: fixed;width: 24%;height: 57%;overflow: scroll;padding:10px;bottom: 0;/* left: 200; */right: 0;overflow-x: hidden;overflow-wrap: initial;">
+	<div id="conversation"></div>
+	<input id="data" style="width:200px;">
+	<input type="button" id="datasend" value="send">
+</div>
+      
+        
+  
+    
+
+<div id="easyrtcErrorDialog" style="display: none;"><div class="easyrtcErrorDialog_title">Error messages</div><div id="easyrtcErrorDialog_body"></div><button class="easyrtcErrorDialog_okayButton">Okay</button></div></body></html>
